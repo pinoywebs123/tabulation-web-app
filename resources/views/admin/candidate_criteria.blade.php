@@ -21,8 +21,8 @@
         <tr>
           <th>No.</th>
           <th>Name</th>
-          <th>Date of Birth</th>
-          <th>Location</th>
+          <th>Score</th>
+          <th>Info</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -30,12 +30,18 @@
        @foreach($candidates as $candi)
         <tr>
           <td><span class="badge">{{$candi->id}}</span></td>
-          <td>{{$candi->f_name}}</td>
-          <td>{{$candi->dob}}</td>
-          <td>{{$candi->address}}</td>
+          <td>{{$candi->fullName()}}</td>
+          <td></td>
           <td>
-            <button class="btn btn-info btn-xs" value="{{$candi->id}}">Edit</button>
-          <button class="btn btn-danger btn-xs" value="{{$candi->id}}">Failed</button>
+             <button class="btn btn-info btn-xs" value="{{$candi->id}}">Edit</button>
+          </td>
+          <td>
+            <select class="form-control" name="gender">
+              @foreach($sub_events as $sub)
+                 <option value="M">{{$sub->name}}</option>
+              @endforeach
+            </select>
+            
           </td>
         </tr>
        @endforeach

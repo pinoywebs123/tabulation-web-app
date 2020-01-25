@@ -13,8 +13,8 @@ class Candidate extends Model
     	return $this->belongsToMany('App\SubEvent');
     }
 
-    // public function fullName()
-    // {
-    // 	return $this->f_name .' '.$this->l_name;
-    // }
+    public function fullName()
+    {
+    	return $this->f_name .' '.$this->l_name;
+    }
 }

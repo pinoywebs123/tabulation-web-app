@@ -51,8 +51,15 @@ class AdminController extends Controller
             $candidates = $preevent->candidate;
             
         }
-        
+        foreach($preevent->event as $aw){
+           $event_id = $aw->id;
+        }
 
-    	return view('admin.candidate_criteria',compact('preevent','criterias','candidates'));
+        $event = Event::findOrFail($event_id);
+       
+        $sub_events = $event->subevents;
+
+
+    	return view('admin.candidate_criteria',compact('preevent','criterias','candidates','sub_events'));
     }
 }
