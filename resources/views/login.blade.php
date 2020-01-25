@@ -42,17 +42,13 @@
 <div class="container">
     
     <div class="col-md-4 col-md-offset-4 well">
-      <center>
-       {{-- <img src="{{URL::to('images/logo2.png')}}" width="120px"> --}}
-       <h1>Pageant Tabulation System</h1>
-       <br>
-    </center>
+     
       @if(Session::has('error'))
         <div class="alert alert-danger">
           <p>{{Session::get('error')}}</p>
         </div>
       @endif
-      <form action="" method="POST">
+      <form action="{{route('login_check')}}" method="POST">
       
         <div class="input-group">
           <span class="input-group-addon glyphicon glyphicon-envelope" id="basic-addon1"></span>
@@ -64,7 +60,7 @@
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-primary btn-block">Login</button>
-          <!-- <a href="{{ route('register') }}" class="btn btn-default btn-block">Register</a> -->
+          
           @csrf
         </div>
       </form>
