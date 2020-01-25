@@ -14,10 +14,14 @@ class CreateTbluserTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('usr_id');
-            $table->string('usr_name');
-            $table->string('usr_psw');
-            $table->string('usr_type');
+            $table->bigIncrements('id');
+            $table->string('f_name');
+            $table->string('m_name');
+            $table->string('l_name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->string('role_id');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
