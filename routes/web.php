@@ -42,3 +42,16 @@ Route::group(['prefix'=> 'admin','namespace'=> 'Admin'], function(){
 		'uses'	=> 'AdminController@admin_candidate_criteria'
 	]);
 });
+
+
+Route::group(['prefix'=> 'emcee','namespace'=> 'Emcee'], function(){
+	Route::get('/home',[
+		'as'	=> 'emcee_home',
+		'uses'	=> 'UserController@emcee_home'
+	]);
+
+	Route::get('/logout',[
+		'as'	=> 'emcee_logout',
+		'uses'	=> 'UserController@emcee_logout'
+	]);
+});
