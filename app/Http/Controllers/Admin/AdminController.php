@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use App\Event;
+use App\SubEvent;
+
 
 class AdminController extends Controller
 {
@@ -30,12 +32,27 @@ class AdminController extends Controller
     public function admin_pre_events($event_id)
     {
         $event = Event::findOrFail($event_id);
-        dd($event->subevents());
-    	return view('admin.pre_event',compact('event'));
+        
+        if($event->subevents){
+            $events = $event->subevents;
+        }
+
+    	return view('admin.pre_event',compact('event','events'));
     }
 
     public function admin_candidate_criteria($prevent_id)
     {
-    	return $prevent_id;
+        $preevent = SubEvent::findOrFail($prevent_id);
+        if($preevent->criterias){
+            $criterias = $preevent->criterias;
+        }
+
+        if($preevent->candidate){
+            $candidates = $preevent->candidate;
+            
+        }
+        
+
+    	return view('admin.candidate_criteria',compact('preevent','criterias','candidates'));
     }
 }

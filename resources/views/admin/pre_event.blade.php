@@ -17,7 +17,19 @@
     </tr>
   </thead>
   <tbody>
-    
+    @foreach($events as $pre)
+      <tr>
+        <td>
+          <a href="{{route('admin_candidate_criteria',['pre_event_id'=> $pre->id])}}">{{$pre->name}}</a>
+        </td>
+        <td>{{$pre->date}}</td>
+        <td>{{$pre->pivot->status_id}}</td>
+        <td>
+           <button class="btn btn-info btn-xs" value="{{$event->id}}">Edit</button>
+          <button class="btn btn-danger btn-xs" value="{{$event->id}}">Closed</button>
+        </td>
+      </tr>
+    @endforeach
   </tbody>
 </table>
 

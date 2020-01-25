@@ -13,10 +13,11 @@ class CreateTbleventCandidatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('event_candidate', function (Blueprint $table) {
-            $table->bigIncrements('evct_id');
-            $table->integer('evnt_ID_FK');
-            $table->integer('cdt_ID_FK');
+        Schema::create('candidate_sub_event', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->bigInteger('sub_event_id');
+            $table->bigInteger('candidate_id');
+            
             $table->timestamps();
         });
     }

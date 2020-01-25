@@ -51,6 +51,16 @@ Route::group(['prefix'=> 'admin','namespace'=> 'Admin'], function(){
 		'as'	=> 'admin_candidate_criteria',
 		'uses'	=> 'AdminController@admin_candidate_criteria'
 	]);
+
+	Route::post('/candidate-with-criteria',[
+		'as'	=> 'admin_candidate_criteria_post',
+		'uses'	=> 'CriteriaController@admin_candidate_criteria_post'
+	]);
+
+	Route::post('/create-candidate',[
+		'as'	=> 'admin_create_candidate',
+		'uses'	=> 'CandidateController@admin_create_candidate'
+	]);
 });
 
 
