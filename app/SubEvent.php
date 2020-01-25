@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubEvent extends Model
 {
-    public function criterias()
+	protected $table = 'subevents';
+	protected $guarded = [];
+    public function event()
     {
-        return $this->belongsToMany('App\Critera', 'subevent_criteria_judge', 'evnt_id_FK', 'svnt_id_FK');
+        return $this->belongsToMany('App\Event')->withPivot('status_id');
     }
 }
