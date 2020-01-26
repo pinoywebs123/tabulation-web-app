@@ -14,10 +14,10 @@ class CreateTblcriteriaTable extends Migration
     public function up()
     {
         Schema::create('criterias', function (Blueprint $table) {
-            $table->bigIncrements('crit_id');
-            $table->string('crit_name');
-            $table->integer('crit_ratio');
-            $table->string('crit_forgender');
+            $table->bigIncrements('id');
+            $table->bigInteger('sub_event_id');
+            $table->string('name');
+            $table->integer('ratio');
             $table->timestamps();
         });
     }

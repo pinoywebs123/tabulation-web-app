@@ -17,7 +17,12 @@ class AuthController extends Controller
 
     	if(Auth::attempt($request->except('_token')))
     	{
-    		return  redirect()->route('admin_home');
+            if(Auth::user()->role_id == 1){
+                return  redirect()->route('admin_home');
+            }else if(Auth::user()->role_id == 3){
+                return  redirect()->route('emcee_home');
+            }
+    		
     	}else
     	{
     		return  'invalid';
