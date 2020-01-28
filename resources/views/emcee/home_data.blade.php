@@ -23,6 +23,41 @@
 	</div>
 	
 </form>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Candidate</th>
+			<th>Score</th>
+			
+		</tr>
+	</thead>
+	<tbody>
+		@foreach($groups as $value)
+		<tr>
+			<td>{{$value->candidate}}</td>
+			<?php $final = 0; ?>
+			@foreach($value->data as $value2)
+				
+					<?php $new_ratio = '.'.$value2->ratio ?>
+					<?php $final = $final + ($value2->score * $new_ratio); ?>
+					
+					
+			@endforeach
+			<td>
+				<?php echo $final; ?>
+				<div class="progress">
+				    <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $final; ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $final; ?>%">
+				     
+				    </div>
+				  </div>
+
+
+			</td>
+		</tr>
+		@endforeach
+	</tbody>
+</table>
 @endsection
 
 @section('scripts')

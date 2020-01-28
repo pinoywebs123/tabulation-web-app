@@ -85,4 +85,15 @@ Route::group(['prefix'=> 'emcee','namespace'=> 'Emcee'], function(){
 		'as'	=> 'emcee_logout',
 		'uses'	=> 'UserController@emcee_logout'
 	]);
+
+	Route::post('/post-event-ajax',[
+		'as'	=> 'emcee_ajax_event',
+		'uses'	=> 'UserController@emcee_ajax_event'
+	]);
+
+	Route::post('/get-candidate-score-date', [
+		'as'	=> 'emcee_get_candidate_score',
+		'uses'	=> 'UserController@emcee_get_candidate_score'
+	]);
+
 });
