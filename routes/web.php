@@ -52,9 +52,9 @@ Route::group(['prefix'=> 'admin','namespace'=> 'Admin'], function(){
             'uses'	=> 'PreEventController@admin_pre_event_post'
         ]);
         
-        Route::post('/pre-events/{event_id}/update',[
+        Route::post('/pre-events/update/{event_id}/{pre_id}',[
             'as'	=> 'admin_pre_event_update',
-            'uses'	=> 'EventController@admin_pre_event_update'
+            'uses'	=> 'PreEventController@admin_pre_event_update'
         ]);
 
 	Route::get('/candidate-with-criteria/{pre_event_id}',[

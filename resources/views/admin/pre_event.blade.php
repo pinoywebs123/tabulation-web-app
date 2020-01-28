@@ -51,15 +51,15 @@
         <div class="modal-body">
           <div class="form-group">
             <label>Pre Event Name</label>
-            <input type="text" name="name" class="form-control">
+            <input id="pre_name" type="text" name="name" class="form-control">
           </div>
           <div class="form-group">
             <label>Pre Event Description</label>
-            <textarea name="description" class="form-control"></textarea>
+            <textarea id="pre_desc" name="description" class="form-control"></textarea>
           </div>
           <div class="form-group">
             <label>Pre Event Date</label>
-            <input type="date" name="date" class="form-control">
+            <input id="pre_date" type="date" name="date" class="form-control">
           </div>
         </div>
         <div class="modal-footer">
@@ -94,8 +94,8 @@
             if (create_or_edit == "create")
                 $('#frmpreevents').attr('action', "{{route('admin_pre_event_post', request()->segment(3))}}");
             else if (create_or_edit == "edit") {
-                let url = '{{route("admin_pre_event_update", ":id")}}';
-                url = url.replace(':id', pre_id);
+                let url = '<?php echo route("admin_pre_event_update", [Request::segment(3), ":pre_id"]) ?>';
+                url = url.replace(':pre_id', pre_id);
 
                 $('#frmpreevents').attr('action', url);
             }
