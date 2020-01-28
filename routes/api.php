@@ -14,7 +14,9 @@ Route::get('/morley',function(){
 
 Route::group(['namespace'=> 'Api','middleware'=> 'cors'], function(){
 
-	Route::get('/login','JudgeController@login');
+	Route::post('/login','JudgeController@login');
+
+	Route::get('/logout','JudgeController@logout');
 
 	Route::get('/getEvents','JudgeController@getEvents');
 
@@ -26,5 +28,5 @@ Route::group(['namespace'=> 'Api','middleware'=> 'cors'], function(){
 
 	Route::post('/candidate_score','JudgeController@candidate_score');
 
-	
+
 });
