@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
+	protected $guarded = [];
+	
     public function subevents()
     {
-        return $this->belongsToMany('App\SubEvent', 'event_subevent', 'evnt_id_FK', 'svnt_id_FK');
+        return $this->hasMany('App\SubEvent');
     }
 
     public function candidates()

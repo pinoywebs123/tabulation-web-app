@@ -14,8 +14,12 @@ class CreateTblsubeventTable extends Migration
     public function up()
     {
         Schema::create('subevents', function (Blueprint $table) {
-            $table->bigIncrements('svnt_id');
-            $table->string('svnt_name');
+            $table->bigIncrements('id');
+            $table->integer('event_id');
+            $table->string('name');
+            $table->text('description');
+            $table->date('date');
+            $table->string('status_id');
             $table->timestamps();
         });
     }

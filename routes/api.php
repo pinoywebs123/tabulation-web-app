@@ -2,21 +2,31 @@
 
 use Illuminate\Http\Request;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::get('/morley',function(){
-	return response()->json(['status'=> 'ok kaau']);
+	return response()->json(['status'=> 'Connected to Server']);
+});
+
+
+Route::group(['namespace'=> 'Api','middleware'=> 'cors'], function(){
+
+	Route::post('/login','JudgeController@login');
+
+	Route::get('/logout','JudgeController@logout');
+
+	Route::get('/getEvents','JudgeController@getEvents');
+
+	Route::get('/getPreEvents/{id}','JudgeController@getPreEvents');
+
+	Route::get('/candidate_criteria/{id}','JudgeController@candidate_criteria');
+
+	Route::get('/candidate_info/{candidate_id}','JudgeController@candidate_info');
+
+	Route::post('/candidate_score','JudgeController@candidate_score');
+
+
 });

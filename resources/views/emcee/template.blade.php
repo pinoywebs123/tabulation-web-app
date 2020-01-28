@@ -32,8 +32,8 @@
  
   <section id="container" class="">
   
-    @include('admin.shared.nav')
-    @include('admin.shared.side')
+    @include('emcee.shared.nav')
+    @include('emcee.shared.side')
    
     <section id="main-content">
       <section class="wrapper">
