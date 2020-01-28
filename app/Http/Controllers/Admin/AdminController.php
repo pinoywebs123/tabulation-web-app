@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Event;
 use App\SubEvent;
-
+use DB;
+use App\Candidate;
 
 class AdminController extends Controller
 {
@@ -60,7 +61,26 @@ class AdminController extends Controller
        
         $sub_events = $event->subevents;
 
+        $groups = DB::table('subevent_criteria_judge')
+                ->select('candidate_id')
+                ->groupBy('candidate_id')
+                ->where('sub_event_id','=', $prevent_id)
+                ->get();
 
-    	return view('admin.candidate_criteria',compact('preevent','criterias','candidates','sub_events'));
+       
+
+       foreach ($groups as $key => $value) {
+            $candi = Candidate::findOrFail($value->candidate_id);
+            $value->candidate = $candi->f_name. ' '.$candi->l_name;
+            $value->data = DB::table('subevent_criteria_judge')
+                            ->join('criterias', 'subevent_criteria_judge.criteria_id', '=', 'criterias.id')
+                            ->where('candidate_id', $value->candidate_id)
+                            ->select('criterias.name', 'criterias.ratio', 'subevent_criteria_judge.score')
+                            ->get();
+                                    
+       }
+
+
+    	return view('admin.candidate_criteria',compact('preevent','criterias','candidates','sub_events','groups'));
     }
 }
