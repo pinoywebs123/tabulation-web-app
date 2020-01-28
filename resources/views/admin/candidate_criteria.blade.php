@@ -27,34 +27,24 @@
         </tr>
       </thead>
       <tbody>
-       @foreach($groups as $value)
-          <tr>
-            <td>{{$value->candidate_id}}</td>
-            <td>{{$value->candidate}}</td>
-            <?php $final = 0; ?>
-            @foreach($value->data as $value2)
-              
-                <?php $new_ratio = '.'.$value2->ratio ?>
-                <?php $final = $final + ($value2->score * $new_ratio); ?>
-                
-                
-            @endforeach
-            <td>
-              <?php echo $final; ?>
-             
-            </td>
-            <td>
-              <button class="btn btn-info btn-xs" >Edit</button>
-            </td>
-            <td>
-              <select class="form-control" name="gender">
-                @foreach($sub_events as $sub)
-                   <option value="M">{{$sub->name}}</option>
-                @endforeach
-              </select>
-            </td>
-          </tr>
-    @endforeach
+       @foreach($candidates as $candi)
+        <tr>
+          <td><span class="badge">{{$candi->id}}</span></td>
+          <td>{{$candi->fullName()}}</td>
+          <td></td>
+          <td>
+             <button class="btn btn-info btn-xs" value="{{$candi->id}}">Edit</button>
+          </td>
+          <td>
+            <select class="form-control" name="gender">
+              @foreach($sub_events as $sub)
+                 <option value="M">{{$sub->name}}</option>
+              @endforeach
+            </select>
+            
+          </td>
+        </tr>
+       @endforeach
       </tbody>
     </table>
   </div>
