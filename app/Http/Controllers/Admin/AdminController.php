@@ -14,7 +14,8 @@ class AdminController extends Controller
     
     public function home()
     {
-    	return view('admin.home');
+        $events = Event::all();
+    	return view('admin.home',compact('events'));
     }
 
     public function admin_logout()

@@ -12,11 +12,21 @@ Route::get('/morley',function(){
 });
 
 
-Route::group(['namespace'=> 'Api'], function(){
+Route::group(['namespace'=> 'Api','middleware'=> 'cors'], function(){
+
+	Route::post('/login','JudgeController@login');
+
+	Route::get('/logout','JudgeController@logout');
 
 	Route::get('/getEvents','JudgeController@getEvents');
 
 	Route::get('/getPreEvents/{id}','JudgeController@getPreEvents');
 
 	Route::get('/candidate_criteria/{id}','JudgeController@candidate_criteria');
+
+	Route::get('/candidate_info/{candidate_id}','JudgeController@candidate_info');
+
+	Route::post('/candidate_score','JudgeController@candidate_score');
+
+
 });
