@@ -32,34 +32,54 @@ Route::group(['prefix'=> 'admin','namespace'=> 'Admin'], function(){
 		'uses'	=> 'AdminController@events'
 	]);
 
-	Route::post('events',[
-		'as'	=> 'admin_event_post',
-		'uses'	=> 'EventController@admin_event_post'
-	]);
+        Route::post('/events/post',[
+            'as'	=> 'admin_event_post',
+            'uses'	=> 'EventController@admin_event_post'
+        ]);
+    
+        Route::post('/events/update/{event_id}',[
+            'as'	=> 'admin_event_update',
+            'uses'	=> 'EventController@admin_event_update'
+        ]);
 
 	Route::get('/pre-events/{event_id}',[
 		'as'	=> 'admin_pre_events',
 		'uses'	=> 'AdminController@admin_pre_events'
 	]);
 
-	Route::post('/post-event',[
-		'as'	=> 'admin_pre_event_post',
-		'uses'	=> 'PreEventController@admin_pre_event_post'
-	]);
+        Route::post('/pre-events/post/{event_id}',[
+            'as'	=> 'admin_pre_event_post',
+            'uses'	=> 'PreEventController@admin_pre_event_post'
+        ]);
+        
+        Route::post('/pre-events/{event_id}/update',[
+            'as'	=> 'admin_pre_event_update',
+            'uses'	=> 'EventController@admin_pre_event_update'
+        ]);
 
 	Route::get('/candidate-with-criteria/{pre_event_id}',[
 		'as'	=> 'admin_candidate_criteria',
 		'uses'	=> 'AdminController@admin_candidate_criteria'
 	]);
 
-	Route::post('/candidate-with-criteria',[
-		'as'	=> 'admin_candidate_criteria_post',
-		'uses'	=> 'CriteriaController@admin_candidate_criteria_post'
-	]);
+        Route::post('/candidate-with-criteria/{pre_event_id}post',[
+            'as'	=> 'admin_candidate_criteria_post',
+            'uses'	=> 'CriteriaController@admin_candidate_criteria_post'
+        ]);
 
-	Route::post('/create-candidate',[
+        Route::post('/candidate-with-criteria/{pre_event_id}/post',[
+            'as'	=> 'admin_candidate_criteria_post',
+            'uses'	=> 'CriteriaController@admin_candidate_criteria_post'
+        ]);
+
+	Route::post('/create-candidate/create',[
 		'as'	=> 'admin_create_candidate',
-		'uses'	=> 'CandidateController@admin_create_candidate'
+		'uses'	=> 'CandidateController@admin_candidate_post'
+    ]);
+    
+    Route::post('/create-candidate/update',[
+		'as'	=> 'admin_create_candidate',
+		'uses'	=> 'CandidateController@admin_candidate_update'
 	]);
 });
 

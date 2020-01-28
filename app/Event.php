@@ -10,7 +10,7 @@ class Event extends Model
 	
     public function subevents()
     {
-        return $this->belongsToMany('App\SubEvent')->withPivot('status_id');
+        return $this->hasMany('App\SubEvent');
     }
 
     public function candidates()

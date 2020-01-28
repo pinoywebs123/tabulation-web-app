@@ -11,7 +11,7 @@ class SubEvent extends Model
 
     public function event()
     {
-        return $this->belongsToMany('App\Event')->withPivot('status_id');
+        return $this->belongsTo('App\Event');
     }
 
     public function criterias()
