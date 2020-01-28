@@ -1,7 +1,7 @@
 @extends('admin.template')
 
 @section('contents')
-<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">Create Event</button>
+<button id="btncreate" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">Create Event</button>
 
 @include('shared.notification')
 
@@ -22,8 +22,11 @@
         </td>
         <td>{{$event->date}}</td>
         <td>{{$event->status_id}}</td>
+        <td class="hidden">{{$event->id}}</td>
+        <td class="hidden">{{$event->name}}</td>
+        <td class="hidden">{{$event->description}}</td>
         <td>
-          <button class="btn btn-info btn-xs" value="{{$event->id}}">Edit</button>
+          <button class="btnedit btn btn-info btn-xs" value="{{$event->id}}" data-toggle="modal" data-target="#myModal">Edit</button>
           <button class="btn btn-danger btn-xs" value="{{$event->id}}">Closed</button>
         </td>
       </tr>
@@ -42,28 +45,58 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Event Information</h4>
       </div>
-      <form action="{{route('admin_event_post')}}" method="POST">
+      <form id="frmevents" action="" method="POST">
         <div class="modal-body">
           <div class="form-group">
             <label>Event Name</label>
-            <input type="text" name="name" class="form-control">
+            <input id="event_name" type="text" name="name" class="form-control">
           </div>
           <div class="form-group">
             <label>Event Description</label>
-            <textarea name="description" class="form-control"></textarea>
+            <textarea id="event_desc" name="description" class="form-control"></textarea>
           </div>
           <div class="form-group">
             <label>Event Date</label>
-            <input type="date" name="date" class="form-control">
+            <input id="event_date" type="date" name="date" class="form-control">
           </div>
         </div>
         <div class="modal-footer">
           @csrf
-          <button type="submit" class="btn btn-primary" >Submit</button>
+          <button id="btnsubmit" type="submit" class="btn btn-primary" >Submit</button>
         </div>
       </form>
     </div>
 
   </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        let create_or_edit, event_id;
+
+        $('#btncreate').click(function() {
+            create_or_edit = "create";
+        });
+
+        $('.btnedit').click(function() {
+            create_or_edit = "edit";
+            event_id = $(this).parent().parent().children('td:nth-of-type(4)').text();
+
+            $('#event_name').val($(this).parent().parent().children('td:nth-of-type(5)').text());
+            $('#event_desc').val($(this).parent().parent().children('td:nth-of-type(6)').text());
+            $('#event_date').val($(this).parent().parent().children('td:nth-of-type(2)').text());
+        });
+
+        $('#btnsubmit').click(function() {
+            if (create_or_edit == "create")
+                $('#frmevents').attr('action', "{{route('admin_event_post')}}");
+            else if (create_or_edit == "edit") {
+                let url = '{{route("admin_event_update", ":id")}}';
+                url = url.replace(':id', event_id);
+
+                $('#frmevents').attr('action', url);
+            }
+        });
+    </script>
 @endsection

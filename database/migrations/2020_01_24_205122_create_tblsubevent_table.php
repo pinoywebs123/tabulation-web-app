@@ -15,9 +15,11 @@ class CreateTblsubeventTable extends Migration
     {
         Schema::create('subevents', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('event_id');
             $table->string('name');
             $table->text('description');
             $table->date('date');
+            $table->string('status_id');
             $table->timestamps();
         });
     }

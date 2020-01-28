@@ -19,6 +19,15 @@ class EventController extends Controller
     	return back()->with('success','Event Created Successfully!');
     }
 
+    public function admin_event_update(Request $request, $event_id)
+    {
+        $data = $request->except('_token', 'id');
+        $data['id'] = $event_id;
+        $data['status_id'] = 1;
+        Event::whereId($event_id)->update($data);
+        return back()->with('success','Event Updated Successfully!');
+  }
+  
     public function admin_ajax_event(Request $request)
     {
     	$event = Event::findOrFail($request->event_id);

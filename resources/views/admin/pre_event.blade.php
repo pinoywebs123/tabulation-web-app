@@ -1,11 +1,11 @@
 @extends('admin.template')
 
 @section('contents')
-<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">Create Pre Event</button>
+<button id="btncreate" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">Create Pre Event</button>
 
 @include('shared.notification')
 <div class="text-center">
-  <h3>{{$event->name}}</h3>
+  <h1>{{$event->name}}</h1>
 </div>
 <table class="table table-striped">
   <thead>
@@ -23,9 +23,12 @@
           <a href="{{route('admin_candidate_criteria',['pre_event_id'=> $pre->id])}}">{{$pre->name}}</a>
         </td>
         <td>{{$pre->date}}</td>
-        <td>{{$pre->pivot->status_id}}</td>
+        <td>{{$pre->status_id}}</td>
+        <td class="hidden">{{$pre->event_id}}</td>
+        <td class="hidden">{{$pre->name}}</td>
+        <td class="hidden">{{$pre->description}}</td>
         <td>
-           <button class="btn btn-info btn-xs" value="{{$event->id}}">Edit</button>
+           <button class="btnedit btn btn-info btn-xs" value="{{$event->id}}" data-toggle="modal" data-target="#myModal">Edit</button>
           <button class="btn btn-danger btn-xs" value="{{$event->id}}">Closed</button>
         </td>
       </tr>
@@ -44,9 +47,8 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Pre Event Information</h4>
       </div>
-      <form action="{{route('admin_pre_event_post')}}" method="POST">
+      <form id="frmpreevents" action="" method="POST">
         <div class="modal-body">
-          <input type="hidden" name="event_id" value="{{$event->id}}">
           <div class="form-group">
             <label>Pre Event Name</label>
             <input type="text" name="name" class="form-control">
@@ -62,11 +64,41 @@
         </div>
         <div class="modal-footer">
           @csrf
-          <button type="submit" class="btn btn-primary" >Submit</button>
+          <button id="btnsubmit" type="submit" class="btn btn-primary" >Submit</button>
         </div>
       </form>
     </div>
 
   </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        let create_or_edit, pre_id;
+
+        $('#btncreate').click(function() {
+            create_or_edit = "create";
+        });
+
+        $('.btnedit').click(function() {
+            create_or_edit = "edit";
+            pre_id = $(this).parent().parent().children('td:nth-of-type(4)').text();
+
+            $('#pre_name').val($(this).parent().parent().children('td:nth-of-type(5)').text());
+            $('#pre_desc').val($(this).parent().parent().children('td:nth-of-type(6)').text());
+            $('#pre_date').val($(this).parent().parent().children('td:nth-of-type(2)').text());
+        });
+
+        $('#btnsubmit').click(function() {
+            if (create_or_edit == "create")
+                $('#frmpreevents').attr('action', "{{route('admin_pre_event_post', request()->segment(3))}}");
+            else if (create_or_edit == "edit") {
+                let url = '{{route("admin_pre_event_update", ":id")}}';
+                url = url.replace(':id', pre_id);
+
+                $('#frmpreevents').attr('action', url);
+            }
+        });
+    </script>
 @endsection
