@@ -130,6 +130,7 @@ class JudgeController extends Controller
 
     public function candidate_score(Request $request)
     {
+
     	$user = JWTAuth::parseToken()->authenticate();
     	
     	//return response()->json($request);
@@ -137,7 +138,8 @@ class JudgeController extends Controller
     		'sub_event_id'	=> $request->sub_event_id,
     		'criteria_id'	=> $request->criteria_id,
     		'judge_id'		=> $user->id,
-    		'score'			=> $request->score
+    		'score'			=> $request->score,
+            'candidate_id'  => $request->candidate_id
     	]);
     	return response()->json(['status'=> 200,'message'=> 'Score Successfully Saved!']);
     	//return response()->json(['tae'=> $request]);

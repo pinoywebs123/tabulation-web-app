@@ -61,6 +61,17 @@ Route::group(['prefix'=> 'admin','namespace'=> 'Admin'], function(){
 		'as'	=> 'admin_create_candidate',
 		'uses'	=> 'CandidateController@admin_create_candidate'
 	]);
+
+	Route::post('/post-event-ajax',[
+		'as'	=> 'admin_ajax_event',
+		'uses'	=> 'EventController@admin_ajax_event'
+	]);
+
+	Route::post('/get-candidate-score-date', [
+		'as'	=> 'admin_get_candidate_score',
+		'uses'	=> 'EventController@admin_get_candidate_score'
+	]);
+
 });
 
 

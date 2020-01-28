@@ -15,9 +15,10 @@ class CreateTblsubeventCriteriaTable extends Migration
     {
         Schema::create('subevent_criteria_judge', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('sub_event_id');
-            $table->integer('criteria_id');
-            $table->integer('judge_id');
+            $table->bigInteger('sub_event_id');
+            $table->bigInteger('criteria_id');
+            $table->bigInteger('judge_id');
+            $table->bigInteger('candidate_id');
             $table->integer('score');
             $table->timestamps();
         });
