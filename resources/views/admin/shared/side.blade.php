@@ -16,6 +16,20 @@
                   <span>Events</span>
             </a>
           </li>
+
+          <li class="@if(Request::segment(2) == 'candidates') active @endif">
+          <a href="{{route('admin_get_candidates')}}">
+                  <i class="icon_group"></i>
+                  <span>Candidates</span>
+            </a>
+          </li>
+
+          <li class="@if(Request::segment(2) == 'judges-list') active @endif">
+          <a href="{{route('admin_judges_list')}}">
+                  <i class="icon_pens"></i>
+                  <span>Judges</span>
+            </a>
+          </li>
           
           
           

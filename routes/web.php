@@ -72,6 +72,52 @@ Route::group(['prefix'=> 'admin','namespace'=> 'Admin'], function(){
 		'uses'	=> 'EventController@admin_get_candidate_score'
 	]);
 
+	Route::get('/candidates',[
+		'as'	=> 'admin_get_candidates',
+		'uses'	=> 'AdminController@admin_get_candidates'
+	]);
+
+	Route::post('/find_candidate',[
+		'as'	=> 'admin_find_candidate',
+		'uses'	=> 'AdminController@admin_find_candidate'
+	]);
+
+	Route::post('/update-candidate', [
+		'as'	=> 'admin_update_candidate',
+		'uses'	=> 'AdminController@admin_update_candidate'
+	]);
+
+	Route::get('/judges-list',[
+		'as'	=> 'admin_judges_list',
+		'uses'	=> 'AdminController@admin_judges_list'
+	]);
+
+	Route::post('/find_judge',[
+		'as'	=> 'admin_find_judge',
+		'uses'	=> 'AdminController@admin_find_judge'
+	]);
+
+	Route::post('/update-judge', [
+		'as'	=> 'admin_update_judge',
+		'uses'	=> 'AdminController@admin_update_judge'
+	]);
+
+	Route::post('/create-judge',[
+		'as'	=> 'admin_create_judge',
+		'uses'	=> 'AdminController@admin_create_judge'
+	]);
+
+	Route::post('/find_criteria',[
+		'as'	=> 'admin_find_criteria',
+		'uses'	=> 'AdminController@admin_find_criteria'
+	]);
+
+	Route::post('/update-criteria', [
+		'as'	=> 'admin_update_criteria',
+		'uses'	=> 'AdminController@admin_update_criteria'
+	]);
+
+
 });
 
 

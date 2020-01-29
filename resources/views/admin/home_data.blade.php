@@ -29,7 +29,7 @@
 		<tr>
 			<th>Candidate</th>
 			<th>Score</th>
-			
+			<th>Stage/Level</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -43,9 +43,10 @@
 					<?php $final = $final + ($value2->score * $new_ratio); ?>
 					
 					
+					
 			@endforeach
 			<td>
-				<?php echo $final; ?>
+				<?php echo $final / $value->total_judge_final; ?>
 				<div class="progress">
 				    <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $final; ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $final; ?>%">
 				     
@@ -53,6 +54,10 @@
 				  </div>
 
 
+			</td>
+			<td>
+				{{$value->pre_event}}
+				{{$value->candidate_id}}
 			</td>
 		</tr>
 		@endforeach

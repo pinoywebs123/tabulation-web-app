@@ -21,9 +21,10 @@
         <tr>
           <th>No.</th>
           <th>Name</th>
-          <th>Score</th>
-          <th>Info</th>
-          <th>Actions</th>
+          <th>Gender</th>
+          <th>Date of Birth</th>
+          <!-- <th>Info</th> -->
+          
         </tr>
       </thead>
       <tbody>
@@ -31,18 +32,12 @@
         <tr>
           <td><span class="badge">{{$candi->id}}</span></td>
           <td>{{$candi->fullName()}}</td>
-          <td></td>
-          <td>
+          <td>{{$candi->gender}}</td>
+          <td>{{$candi->dob}}</td>
+          <!-- <td>
              <button class="btn btn-info btn-xs" value="{{$candi->id}}">Edit</button>
-          </td>
-          <td>
-            <select class="form-control" name="gender">
-              @foreach($sub_events as $sub)
-                 <option value="M">{{$sub->name}}</option>
-              @endforeach
-            </select>
-            
-          </td>
+          </td> -->
+         
         </tr>
        @endforeach
       </tbody>
@@ -52,7 +47,13 @@
     <ul class="list-group">
       <li class="list-group-item active">List of Criteria</li>
       @foreach($criterias as $cri)
-        <li class="list-group-item">{{$cri->name}} - <span class="badge">{{$cri->ratio}}%</span></li>
+        <li class="list-group-item">
+          <button class="btn btn-info btn-xs edit_btn" data-toggle="modal" data-target="#myModal3" value="{{$cri->id}}">Edit</button>
+          {{$cri->name}} - 
+          <span class="badge">{{$cri->ratio}}% -</span>
+
+        </li>
+
       @endforeach
       
       
@@ -154,4 +155,69 @@
 
   </div>
 </div>
+
+<div id="myModal3" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Criteria Informations</h4>
+      </div>
+      <form action="{{route('admin_update_criteria')}}" method="POST">
+        <div class="modal-body">
+          <input type="hidden" name="criteria_id" id="criteria_id">
+          <div class="form-group">
+            <label>Criteria Name</label>
+            <input type="text" name="name" class="form-control" id="name">
+          </div>
+          <div class="form-group">
+            <label>Ratio/Percentage</label>
+            <input type="number" name="ratio" class="form-control" maxlength="2" id="ratio">
+          </div>
+
+         
+        </div>
+        <div class="modal-footer">
+          @csrf
+          <button type="submit" class="btn btn-primary" >Submit</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+@endsection
+@section('scripts')
+<script>
+        $(document).ready( function () {
+          var token = '{{Session::token()}}';
+          var url = '{{route('admin_find_criteria')}}';
+            
+
+            $(".edit_btn").click(function(){
+              console.log($(this).val());
+              var criteria_id = $(this).val();
+
+              $.ajax({
+                method: 'POST',
+                url: url,
+                data: { criteria_id :criteria_id , _token : token},
+                success: function( msg ){
+                  console.log(msg);
+                  $("#name").val(msg.name);
+                  $("#ratio").val(msg.ratio);
+                  $("#criteria_id").val(msg.id);
+                }
+            });
+
+
+            });
+
+           
+
+
+        } );
+    </script>
 @endsection

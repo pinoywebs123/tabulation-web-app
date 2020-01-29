@@ -29,5 +29,10 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
+    public function fullName()
+    {
+        return $this->f_name .' '.$this->l_name;
+    }
+
    
 }

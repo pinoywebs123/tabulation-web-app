@@ -133,6 +133,15 @@ class JudgeController extends Controller
 
     	$user = JWTAuth::parseToken()->authenticate();
     	
+        $find = DB::table('subevent_criteria_judge')
+                ->where('sub_event_id',$request->sub_event_id)
+                ->where('criteria_id',$request->criteria_id)
+                ->where('judge_id',$user->id)
+                ->where('candidate_id',$request->candidate_id)
+                ->first();
+        if($find){
+            return response()->json(['status'=> 150,'message'=> 'You are only allowed to score each candidate once.!']);
+        }        
     	//return response()->json($request);
     	DB::table('subevent_criteria_judge')->insert([
     		'sub_event_id'	=> $request->sub_event_id,

@@ -11,7 +11,7 @@
       <th>Event Name</th>
       <th>Date</th>
       <th>Status</th>
-      <th>Actions</th>
+      <!-- <th>Actions</th> -->
     </tr>
   </thead>
   <tbody>
@@ -23,8 +23,8 @@
         <td>{{$event->date}}</td>
         <td>{{$event->status_id}}</td>
         <td>
-          <button class="btn btn-info btn-xs" value="{{$event->id}}">Edit</button>
-          <button class="btn btn-danger btn-xs" value="{{$event->id}}">Closed</button>
+          <!-- <button class="btn btn-info btn-xs" value="{{$event->id}}">Edit</button> -->
+          
         </td>
       </tr>
     @endforeach

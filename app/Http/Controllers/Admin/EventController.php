@@ -42,15 +42,36 @@ class EventController extends Controller
        
 
        foreach ($groups as $key => $value) {
+          $value->pre_event = $request->pre_event_id;
        		$candi = Candidate::findOrFail($value->candidate_id);
        		$value->candidate = $candi->f_name. ' '.$candi->l_name;
+
+
+          //get more data
        		$value->data = DB::table('subevent_criteria_judge')
        						->join('criterias', 'subevent_criteria_judge.criteria_id', '=', 'criterias.id')
+                  ->join('subevents', 'subevent_criteria_judge.sub_event_id', '=', 'subevents.id')
+                  ->join('users', 'subevent_criteria_judge.judge_id', '=', 'users.id')
        		 				->where('candidate_id', $value->candidate_id)
-       		 				->select('criterias.name', 'criterias.ratio', 'subevent_criteria_judge.score')
+       		 				->select('criterias.name', 'criterias.ratio', 'subevent_criteria_judge.score','subevents.id as pre_event_id','users.id as judge_id')
        		 				->get();
+
+               
+
+                 
        				 				
        }
+
+        //discount all judge
+       foreach ($groups as $value) {
+
+
+          $value->total_judge = DB::select( DB::raw("SELECT DISTINCT judge_id FROM subevent_criteria_judge WHERE sub_event_id = '$request->pre_event_id' AND candidate_id = '$value->candidate_id'") );
+
+          $value->total_judge_final = count($value->total_judge);
+       }
+
+      
 
       //dd($groups);
 
